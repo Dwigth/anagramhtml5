@@ -1,4 +1,5 @@
-import { Anagram } from "./ui/Anagram";
-const container = document.getElementById("game");
-const game = new Anagram(container);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Anagram_1 = require("./ui/Anagram");
+const game = new Anagram_1.Anagram();
 //# sourceMappingURL=Game.js.map

@@ -1,0 +1,16 @@
+div#game {
+    width: 100%;
+    border: solid black;
+    height: 200px;
+}
+
+div#game > input,label {
+    width: 80%;
+    margin: 15px;
+    padding: 7px;
+}
+
+.btn-container {
+    width: 100%;
+    margin: 15px;
+}

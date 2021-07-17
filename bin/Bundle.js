@@ -1,3 +1,10 @@
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Anagram_1 = require("./ui/Anagram");
+const game = new Anagram_1.Anagram();
+
+},{"./ui/Anagram":4}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const WordLibrary_1 = require("./WordLibrary");
@@ -136,4 +143,58 @@ StaticWordLibrary.SCRAMBLED_WORD_LIST = [
 ];
 StaticWordLibrary.DEFAULT = new StaticWordLibrary();
 exports.StaticWordLibrary = StaticWordLibrary;
-//# sourceMappingURL=StaticWordLibrary.js.map
+
+},{"./WordLibrary":3}],3:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class WordLibrary {
+    constructor() { }
+}
+exports.WordLibrary = WordLibrary;
+
+},{}],4:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const StaticWordLibrary_1 = require("../lib/StaticWordLibrary");
+class Anagram {
+    constructor() {
+        this.wordIdx = 0;
+        this.wordLibrary = StaticWordLibrary_1.StaticWordLibrary.DEFAULT;
+        this.SCRAMBLED_WORD_INPUT = document.getElementById("scrambled-input");
+        this.GUESSED_WORD_INPUT = document.getElementById("guess-input");
+        this.GUESS_BUTTON = document.getElementById("guess-btn");
+        this.NEXT_WORD_BUTTON = document.getElementById("change-word-btn");
+        this.SCRAMBLED_WORD_INPUT.value = this.wordLibrary.getScrambledWord(this.wordIdx);
+        this.SCRAMBLED_WORD_INPUT.readOnly = true;
+        this.NEXT_WORD_BUTTON.addEventListener("click", () => {
+            this.SetNextWord();
+        });
+        this.GUESS_BUTTON.addEventListener("click", () => {
+            this.Guess();
+        });
+    }
+    /**
+     * Set the next value in the input and clean the user guess
+     */
+    SetNextWord() {
+        this.wordIdx = (this.wordIdx + 1) % this.wordLibrary.getSize();
+        this.SCRAMBLED_WORD_INPUT.value = this.wordLibrary.getScrambledWord(this.wordIdx);
+        this.GUESSED_WORD_INPUT.value = "";
+    }
+    /**
+     * check whether if the user guess is correct or is not and change the next word if needed
+     */
+    Guess() {
+        const userguess = this.GUESSED_WORD_INPUT.value;
+        if (this.wordLibrary.isCorrect(this.wordIdx, userguess)) {
+            alert("You guessed it!!!");
+            this.SetNextWord();
+        }
+        else {
+            alert("Mmm try again :(");
+        }
+    }
+}
+exports.Anagram = Anagram;
+
+},{"../lib/StaticWordLibrary":2}]},{},[1]);
