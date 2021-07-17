@@ -5,14 +5,25 @@
 	
     <title>Anagram</title>
 	  <meta name="description" content="Anagram">
+    <link rel="stylesheet" href="ui/Anagram.css">
   </head>
   <body>
     <div id="game">
-      <form>
+      <label for="scrambled-input">Scrambled word</label>
+      <br>
+      <input id="scrambled-input" readonly="">
+      <br>
+      <label for="guess-input">Your guess</label>
+      <br>
+      <input id="guess-input" spellcheck="false" data-ms-editor="true">
 
-      </form>
+      <div class="btn-container">
+        <button id="guess-btn">Guess</button>
+        <button id="change-word-btn">Change word</button>
+      </div>
     </div>
-    <script>var exports = {}</script>
-	  <script type="module" src="Game.js"></script>
+    <!-- <script>var exports = {};</script> -->
+	  <!-- <script type="module" src="Bundle.js"></script> -->
+	  <script src="Bundle.js"></script>
   </body>
 </html>

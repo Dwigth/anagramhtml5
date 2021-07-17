@@ -10,19 +10,43 @@ export class Anagram {
     public wordLibrary = StaticWordLibrary.DEFAULT;
 
 
-    constructor (public container: HTMLElement) {
-        
-        this.SCRAMBLED_WORD_INPUT = document.createElement("input");
-        this.GUESSED_WORD_INPUT = document.createElement("input");
-        this.GUESS_BUTTON = document.createElement("button");
-        this.NEXT_WORD_BUTTON = document.createElement("button");
+    constructor () {
+        this.SCRAMBLED_WORD_INPUT = <HTMLInputElement>document.getElementById("scrambled-input");
+        this.GUESSED_WORD_INPUT = <HTMLInputElement>document.getElementById("guess-input");
+        this.GUESS_BUTTON = <HTMLButtonElement>document.getElementById("guess-btn");
+        this.NEXT_WORD_BUTTON = <HTMLButtonElement>document.getElementById("change-word-btn");
 
-        this.SCRAMBLED_WORD_INPUT.textContent = this.wordLibrary.getScrambledWord(this.wordIdx);
+        this.SCRAMBLED_WORD_INPUT.value  = this.wordLibrary.getScrambledWord(this.wordIdx);
+        this.SCRAMBLED_WORD_INPUT.readOnly = true;
 
-        //container.append(this.SCRAMBLED_WORD_INPUT,this.GUESSED_WORD_INPUT)
+        this.NEXT_WORD_BUTTON.addEventListener("click",()=> {
+            this.SetNextWord()
+        });
+
+        this.GUESS_BUTTON.addEventListener("click", () => {
+            this.Guess();
+        });
     }
-
+    
+    /**
+     * Set the next value in the input and clean the user guess
+     */
     SetNextWord() {
         this.wordIdx = (this.wordIdx + 1) % this.wordLibrary.getSize();
+        this.SCRAMBLED_WORD_INPUT.value = this.wordLibrary.getScrambledWord(this.wordIdx);
+        this.GUESSED_WORD_INPUT.value = "";
+    }
+
+    /**
+     * check whether if the user guess is correct or is not and change the next word if needed
+     */
+    Guess() {
+        const userguess = this.GUESSED_WORD_INPUT.value;
+        if(this.wordLibrary.isCorrect(this.wordIdx,userguess)) {
+            alert("You guessed it!!!");
+            this.SetNextWord();
+        } else {
+            alert("Mmm try again :(")
+        }
     }
 }
